@@ -80,6 +80,8 @@ tar -xzf $CACHE_DIR/env.tar.gz -C $BUILD_DIR
 
 
 # installing application dependencies
+#modified
+ln -s /app/.heroku/vendor/bin/python /usr/local/bin/python
 if [ -f $BUILD_DIR/requirements.txt ]; then
 	title "Found requirements.txt, installing dependencies using pip"
 	$BUILD_DIR/.heroku/vendor/bin/pip install -r requirements.txt --root=$HOME --exists-action=w --src=./.heroku/src --allow-all-external
