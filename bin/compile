@@ -61,7 +61,17 @@ ORIG_BUILD_DIR=$BUILD_DIR
 BUILD_DIR=$APP_DIR
 cd $BUILD_DIR
 
+#tried to move installs towards top
+python pip install dj-database-url
+python pip install Django
+
 unset LD_LIBRARY_PATH PATH PYTHONPATH
+
+#export LD_LIBRARY_PATH="$BUILD_DIR/.heroku/vendor/lib/"
+#export PATH="$HOME/usr/local/bin:$BUILD_DIR/.heroku/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#export PYTHONPATH="$HOME/usr/local/lib:$BUILD_DIR/.heroku/vendor/lib/python2.7/site-packages/"
+
+
 
 export LD_LIBRARY_PATH="$BUILD_DIR/.heroku/vendor/lib/"
 export PATH="$HOME/usr/local/bin:$BUILD_DIR/.heroku/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -84,7 +94,8 @@ tar -xzf $CACHE_DIR/env.tar.gz -C $BUILD_DIR
 cp /app/pip /app/.heroku/vendor/bin/pip
 if [ -f $BUILD_DIR/requirements.txt ]; then
 	title "Found requirements.txt, installing dependencies using pip"
-	$BUILD_DIR/.heroku/vendor/bin/pip install -r requirements.txt --root=$HOME --exists-action=w --src=./.heroku/src --allow-all-external
+	$BUILD_DIR/.heroku/vendor/bin/pip install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external
+	#$BUILD_DIR/.heroku/vendor/bin/pip install -r requirements.txt --root=$HOME --exists-action=w --src=./.heroku/src --allow-all-external
 fi
 
 # creating env variables
@@ -94,7 +105,7 @@ mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/5251124.sh
 export LD_LIBRARY_PATH="\$HOME/.heroku/vendor/lib/:\$HOME/.heroku/vendor/lib/:\$LD_LIBRARY_PATH"
 #modified here
-#export PATH="\$HOME/usr/local/bin:\$HOME/.heroku/vendor/bin:\$PATH"
+export PATH="\$HOME/usr/local/bin:\$HOME/.heroku/vendor/bin:\$PATH"
 export PYTHONPATH="\$HOME/usr/local/lib/python2.7/site-packages/:\$HOME/.heroku/vendor/lib/:\$HOME/.heroku/vendor/lib/python2.7/site-packages/"
 EOF
 # export "\$LIBRARY_PATH=\$HOME/.heroku/vendor/lib/:\$LIBRARY_PATH"
