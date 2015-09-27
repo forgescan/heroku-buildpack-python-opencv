@@ -61,6 +61,10 @@ ORIG_BUILD_DIR=$BUILD_DIR
 BUILD_DIR=$APP_DIR
 cd $BUILD_DIR
 
+echo $LD_LIBRARY_PATH
+echo $PATH
+echo $PYTHONPATH
+
 #tried to move installs towards top
 python pip install dj-database-url
 python pip install Django
